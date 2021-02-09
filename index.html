@@ -10,8 +10,57 @@
   <h1>Adobe Home Heat Gain & Loss Calculations</h1>
   <table>
     <tr>
-      <td>NM climatic zone</td>
-      <td><input type="number" v-model.number="nm_climatic_zone" disabled="true" /></td>
+      <td>NM climatic region</td>
+      <td><select v-model.number="nm_climatic_zone" />
+        <option value="9">Alamagordo (9)</option>
+        <option value="9">Albuquerque (9)</option>
+        <option value="11">Artesia (11)</option>
+        <option value="5">Aztec Ruins (5)</option>
+        <option value="6">Bloomfield (6)</option>
+        <option value="11">Carlsbad (11)</option>
+        <option value="8">Carrizozo (8)</option>
+        <option value="5">Chaco Canyon (5)</option>
+        <option value="2">Chama (2)</option>
+        <option value="4">Cimarron (4)</option>
+        <option value="5">Clayton (5)</option>
+        <option value="9">Clovis (9)</option>
+        <option value="3">Cloudcroft (3)</option>
+        <option value="7">Corona (7)</option>
+        <option value="2">Cuba (2)</option>
+        <option value="10">Deming (10)</option>
+        <option value="1">Eagle Nest (1)</option>
+        <option value="5">Farmington (5)</option>
+        <option value="3">Gallup (3)</option>
+        <option value="3">Grants (3)</option>
+        <option value="11">Hobbs (11)</option>
+        <option value="4">Las Cruces (4)</option>
+        <option value="4">Las Vegas (4)</option>
+        <option value="4">Los Alamos (4)</option>
+        <option value="9">Lordsburg (9)</option>
+        <option value="3">Luna Range (3)</option>
+        <option value="7">Magdelena (7)</option>
+        <option value="7">Mayhill (7)</option>
+        <option value="4">Mountainair (4)</option>
+        <option value="11">Orogrande (11)</option>
+        <option value="1">Questa (1)</option>
+        <option value="4">Raton (4)</option>
+        <option value="1">Red River (1)</option>
+        <option value="9">Roswell (9)</option>
+        <option value="4">Ruidoso (4)</option>
+        <option value="4">Sandia Ranger Station (4)</option>
+        <option value="4">Santa Fe (4)</option>
+        <option value="5">Shiprock (5)</option>
+        <option value="8">Silver City (8)</option>
+        <option value="9">Socorro (9)</option>
+        <option value="4">Springer (4)</option>
+        <option value="4">Taos (4)</option>
+        <option value="9">Tatum (9)</option>
+        <option value="2">Tierra Amarilla (2)</option>
+        <option value="10">Truth or Consequences (10)</option>
+        <option value="9">Tucumcari (9)</option>
+        <option value="9">Vaughn (9)</option>
+        <option value="9">White Sands (9)</option>
+      </select></td>
     </tr>
     <tr>
       <td>Wall areas (N, E, S, W)</td>
@@ -215,7 +264,7 @@
         6: [.061, .056, .050, .058],
         7: [.061, .056, .050, .058],
         8: [.063, .057, .049, .059],
-        9: [.064, .057, .049, .060]
+        9: [.064, .057, .049, .060],
         10: [.067, .058, .048, .061],
         11: [.069, .059, .048, .062]
       },
@@ -228,7 +277,7 @@
         6: [.173, .160, .141, .163],
         7: [.176, .160, .139, .163],
         8: [.177, .160, .136, .164],
-        9: [.181, .160, .133, .165]
+        9: [.181, .160, .133, .165],
         10: [.187, .161, .129, .168],
         11: [.192, .162, .126, .170]
       },
@@ -241,7 +290,7 @@
         6: [.055, .051, .047, .053],
         7: [.055, .052, .047, .053],
         8: [.057, .053, .047, .054],
-        9: [.059, .054, .047, .055]
+        9: [.059, .054, .047, .055],
         10: [.062, .056, .048, .058],
         11: [.065, .057, .049, .060]
       },
@@ -254,7 +303,7 @@
         6: [.078, .057, .026, .061],
         7: [.077, .053, .018, .058],
         8: [.076, .047, .006, .052],
-        9: [.073, .038, -.009, .045]
+        9: [.073, .038, -.009, .045],
         10: [.066, .023, -.035, .031],
         11: [.062, .013, -.053, .022]
       }
