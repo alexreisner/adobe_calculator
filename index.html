@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Adobe Home Heat Gain & Loss Calculations</title>
+</head>
+<body>
+
+<div id="adobeCalculator">
+  <h1>Adobe Home Heat Gain & Loss Calculations</h1>
+  <table>
+    <tr>
+      <td>NM climatic zone</td>
+      <td><input type="number" v-model.number="nm_climatic_zone" disabled="true" /></td>
+    </tr>
+    <tr>
+      <td>Wall areas (N, E, S, W)</td>
+      <td>
+        <input type="number" v-model.number="wall_area_n" />
+        <input type="number" v-model.number="wall_area_e" />
+        <input type="number" v-model.number="wall_area_s" />
+        <input type="number" v-model.number="wall_area_w" />
+        sq ft
+      </td>
+    </tr>
+    <tr>
+      <td>Window areas (N, E, S, W)</td>
+      <td>
+        <input type="number" v-model.number="window_area_n" />
+        <input type="number" v-model.number="window_area_e" />
+        <input type="number" v-model.number="window_area_s" />
+        <input type="number" v-model.number="window_area_w" />
+        sq ft
+      </td>
+    </tr>
+    <tr>
+      <td>Roof area</td>
+      <td><input type="number" v-model.number="roof_area" /> sq ft</td>
+    </tr>
+    <tr>
+      <td>Foundation perimeter</td>
+      <td><input type="number" v-model.number="foundation_perimeter" /> linear ft</td>
+    </tr>
+    <tr>
+      <td>Infiltration volume</td>
+      <td><input type="number" v-model.number="infiltration_volume" /> cu ft</td>
+    </tr>
+    <tr>
+      <td>Air changes per hour</td>
+      <td><input type="number" v-model.number="airchanges_per_hour" /></td>
+    </tr>
+    <tr>
+      <td>Design day avg temp</td>
+      <td><input type="number" v-model.number="design_day_avg_temp" /> °F</td>
+    </tr>
+    <tr>
+      <td>Desired indoor temp</td>
+      <td><input type="number" v-model.number="desired_indoor_temp" /> °F</td>
+    </tr>
+  </table>
+
+  <table id="results" style="margin-top:30px">
+    <tr>
+      <th></th>
+      <th>Wall Type 1<br/>10" adobe<br/>&nbsp;</th>
+      <th>Wall Type 6<br/>10" adobe<br/>+ polystyrene</th>
+      <th>Wall Type 2<br/>14" adobe<br/>&nbsp;</th>
+      <th>Wall Type 5<br/>14" adobe<br/>+ polystyrene</th>
+      <th>Wall Type 26<br/>pine log<br/>&nbsp;</th>
+    </tr>
+    <tr>
+      <td>Heat gain (BTU/day)</td>
+      <td>{{heatgain}}</td>
+      <td>{{heatgain}}</td>
+      <td>{{heatgain}}</td>
+      <td>{{heatgain}}</td>
+      <td>{{heatgain}}</td>
+    </tr>
+    <tr>
+      <td>Heat loss (BTU/day)</td>
+      <td>{{Math.round(total_losses[0])}}</td>
+      <td>{{Math.round(total_losses[1])}}</td>
+      <td>{{Math.round(total_losses[2])}}</td>
+      <td>{{Math.round(total_losses[3])}}</td>
+      <td>{{Math.round(total_losses[4])}}</td>
+    </tr>
+    <tr>
+      <td>Gain as % of loss</td>
+      <td>{{Math.round(heatgain / total_losses[0] * 100)}}%</td>
+      <td>{{Math.round(heatgain / total_losses[1] * 100)}}%</td>
+      <td>{{Math.round(heatgain / total_losses[2] * 100)}}%</td>
+      <td>{{Math.round(heatgain / total_losses[3] * 100)}}%</td>
+      <td>{{Math.round(heatgain / total_losses[4] * 100)}}%</td>
+    </tr>
+    <tr><td><br /></td></tr>
+    <tr>
+      <th>Heat loss details</th>
+    </tr>
+    <tr>
+      <td>N wall</td>
+      <td>{{Math.round(n_wall_loss[0])}}</td>
+      <td>{{Math.round(n_wall_loss[1])}}</td>
+      <td>{{Math.round(n_wall_loss[2])}}</td>
+      <td>{{Math.round(n_wall_loss[3])}}</td>
+      <td>{{Math.round(n_wall_loss[4])}}</td>
+    </tr>
+    <tr>
+      <td>E wall</td>
+      <td>{{Math.round(e_wall_loss[0])}}</td>
+      <td>{{Math.round(e_wall_loss[1])}}</td>
+      <td>{{Math.round(e_wall_loss[2])}}</td>
+      <td>{{Math.round(e_wall_loss[3])}}</td>
+      <td>{{Math.round(e_wall_loss[4])}}</td>
+    </tr>
+    <tr>
+      <td>S wall</td>
+      <td>{{Math.round(s_wall_loss[0])}}</td>
+      <td>{{Math.round(s_wall_loss[1])}}</td>
+      <td>{{Math.round(s_wall_loss[2])}}</td>
+      <td>{{Math.round(s_wall_loss[3])}}</td>
+      <td>{{Math.round(s_wall_loss[4])}}</td>
+    </tr>
+    <tr>
+      <td>W wall</td>
+      <td>{{Math.round(w_wall_loss[0])}}</td>
+      <td>{{Math.round(w_wall_loss[1])}}</td>
+      <td>{{Math.round(w_wall_loss[2])}}</td>
+      <td>{{Math.round(w_wall_loss[3])}}</td>
+      <td>{{Math.round(w_wall_loss[4])}}</td>
+    </tr>
+    <tr>
+      <td>N window</td>
+      <td>{{Math.round(n_window_loss)}}</td>
+      <td>{{Math.round(n_window_loss)}}</td>
+      <td>{{Math.round(n_window_loss)}}</td>
+      <td>{{Math.round(n_window_loss)}}</td>
+      <td>{{Math.round(n_window_loss)}}</td>
+    </tr>
+    <tr>
+      <td>E window</td>
+      <td>{{Math.round(e_window_loss)}}</td>
+      <td>{{Math.round(e_window_loss)}}</td>
+      <td>{{Math.round(e_window_loss)}}</td>
+      <td>{{Math.round(e_window_loss)}}</td>
+      <td>{{Math.round(e_window_loss)}}</td>
+    </tr>
+    <tr>
+      <td>S window</td>
+      <td>{{Math.round(s_window_loss)}}</td>
+      <td>{{Math.round(s_window_loss)}}</td>
+      <td>{{Math.round(s_window_loss)}}</td>
+      <td>{{Math.round(s_window_loss)}}</td>
+      <td>{{Math.round(s_window_loss)}}</td>
+    </tr>
+    <tr>
+      <td>W window</td>
+      <td>{{Math.round(w_window_loss)}}</td>
+      <td>{{Math.round(w_window_loss)}}</td>
+      <td>{{Math.round(w_window_loss)}}</td>
+      <td>{{Math.round(w_window_loss)}}</td>
+      <td>{{Math.round(w_window_loss)}}</td>
+    </tr>
+    <tr>
+      <td>Roof</td>
+      <td>{{Math.round(roof_loss)}}</td>
+      <td>{{Math.round(roof_loss)}}</td>
+      <td>{{Math.round(roof_loss)}}</td>
+      <td>{{Math.round(roof_loss)}}</td>
+      <td>{{Math.round(roof_loss)}}</td>
+    </tr>
+    <tr>
+      <td>Foundation</td>
+      <td>{{Math.round(foundation_loss)}}</td>
+      <td>{{Math.round(foundation_loss)}}</td>
+      <td>{{Math.round(foundation_loss)}}</td>
+      <td>{{Math.round(foundation_loss)}}</td>
+      <td>{{Math.round(foundation_loss)}}</td>
+    </tr>
+    <tr>
+      <td>Infiltration</td>
+      <td>{{Math.round(infiltration_loss)}}</td>
+      <td>{{Math.round(infiltration_loss)}}</td>
+      <td>{{Math.round(infiltration_loss)}}</td>
+      <td>{{Math.round(infiltration_loss)}}</td>
+      <td>{{Math.round(infiltration_loss)}}</td>
+    </tr>
+  </table>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    var wall_types = [1, 6, 2, 5, 26];
+    var u_adobe_wall = { // source: NM Energy Conservation Code Manual
+      // wall type
+      1: {
+        // climatic region => [N,E,S,W]
+        1: [0.225, 0.205, 0.188, 0.217],
+        2: [0.219, 0.205, 0.189, 0.208],
+        9: [0.227, 0.198, 0.160, 0.204]
+      },
+      6: {
+        9: [0.064, 0.057, 0.049, 0.060]
+      },
+      2: {
+        9: [0.181, 0.160, 0.133, 0.165]
+      },
+      5: {
+        9: [0.059, 0.054, 0.047, 0.055]
+      },
+      26: {
+        9: [0.073, 0.038, 0.009, 0.045]
+      }
+    }
+    var u_window = 0.33; // reciprocal of R-3
+    var u_roof = 0.024; // reciprocal of R-42
+    var u_foundation_perimeter = 0.17; // Mazria p. 278
+    var u_infiltration_volume = 0.018; // Mazria
+    var app = new Vue({
+      el: '#adobeCalculator',
+      data: {
+        nm_climatic_zone: 9,
+        wall_area_n: 494,
+        wall_area_e: 234,
+        wall_area_s: 250,
+        wall_area_w: 234,
+        window_area_n: 6,
+        window_area_e: 16,
+        window_area_s: 250,
+        window_area_w: 16,
+        roof_area: 1250,
+        foundation_perimeter: 150,
+        infiltration_volume: 12500,
+        airchanges_per_hour: 1,
+        design_day_avg_temp: 35,
+        desired_indoor_temp: 65
+      },
+      computed: {
+        heatgain: function () {
+          return this.window_area_s * 1550;
+        },
+        n_wall_loss: function () {
+          var results = [];
+          for (var i = 0; i < wall_types.length; i++) {
+            var t = wall_types[i];
+            results.push(this.wall_area_n * u_adobe_wall[t][this.nm_climatic_zone][0]);
+          }
+          return results;
+        },
+        e_wall_loss: function () {
+          var results = [];
+          for (var i = 0; i < wall_types.length; i++) {
+            var t = wall_types[i];
+            results.push(this.wall_area_e * u_adobe_wall[t][this.nm_climatic_zone][1]);
+          }
+          return results;
+        },
+        s_wall_loss: function () {
+          var results = [];
+          for (var i = 0; i < wall_types.length; i++) {
+            var t = wall_types[i];
+            results.push(this.wall_area_s * u_adobe_wall[t][this.nm_climatic_zone][2]);
+          }
+          return results;
+        },
+        w_wall_loss: function () {
+          var results = [];
+          for (var i = 0; i < wall_types.length; i++) {
+            var t = wall_types[i];
+            results.push(this.wall_area_w * u_adobe_wall[t][this.nm_climatic_zone][3]);
+          }
+          return results;
+        },
+
+        n_window_loss: function () {
+          return this.window_area_n * u_window;
+        },
+        e_window_loss: function () {
+          return this.window_area_e * u_window;
+        },
+        s_window_loss: function () {
+          return this.window_area_s * u_window;
+        },
+        w_window_loss: function () {
+          return this.window_area_w * u_window;
+        },
+
+        roof_loss: function() {
+          return this.roof_area * u_roof;
+        },
+        foundation_loss: function() {
+          return this.foundation_perimeter * u_foundation_perimeter;
+        },
+        infiltration_loss: function() {
+          return this.infiltration_volume * this.airchanges_per_hour * u_infiltration_volume;
+        },
+
+        total_losses: function () {
+          var results = [];
+          for (var i = 0; i < wall_types.length; i++) {
+            var t = wall_types[i];
+            results.push(
+              (
+                this.n_wall_loss[i] +
+                this.e_wall_loss[i] +
+                this.s_wall_loss[i] +
+                this.w_wall_loss[i] +
+                this.n_window_loss +
+                this.e_window_loss +
+                this.s_window_loss +
+                this.w_window_loss +
+                this.roof_loss +
+                this.foundation_loss +
+                this.infiltration_loss
+              ) * this.delta_t * 24
+            );
+          }
+          return results;
+        },
+        delta_t: function() {
+          return [this.desired_indoor_temp - this.design_day_avg_temp];
+        },
+      },
+      methods: {
+      }
+    });
+  </script>
+</body>
+</html>
