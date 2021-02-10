@@ -15,7 +15,7 @@ input { width: 75px; }
   <table>
     <tr>
       <td>NM climatic region</td>
-      <td><select v-model.number="nm_climatic_zone" />
+      <td><select v-model.number="nm_climatic_zone">
         <option value="9">Alamagordo (9)</option>
         <option value="9">Albuquerque (9)</option>
         <option value="11">Artesia (11)</option>
@@ -100,7 +100,13 @@ input { width: 75px; }
     </tr>
     <tr>
       <td>Air changes per hour</td>
-      <td><input type="number" v-model.number="airchanges_per_hour" /></td>
+      <td>
+        <select v-model.number="airchanges_per_hour" style="width:100px">
+          <option value="0.33">0.33</option>
+          <option value="0.5">0.5</option>
+          <option value="1">1</option>
+        </select>
+      </td>
     </tr>
     <tr>
       <td>Design day avg temp</td>
@@ -116,9 +122,9 @@ input { width: 75px; }
     <tr>
       <th></th>
       <th>Wall Type 1<br/>10" adobe<br/>&nbsp;</th>
-      <th>Wall Type 6<br/>10" adobe<br/>+ polystyrene</th>
+      <th>Wall Type 6<br/>10" adobe<br/>+ R10 insulation</th>
       <th>Wall Type 2<br/>14" adobe<br/>&nbsp;</th>
-      <th>Wall Type 5<br/>14" adobe<br/>+ polystyrene</th>
+      <th>Wall Type 5<br/>14" adobe<br/>+ R10 insulation</th>
       <th>Wall Type 26<br/>pine log<br/>&nbsp;</th>
     </tr>
     <tr>
