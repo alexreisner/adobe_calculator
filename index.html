@@ -259,190 +259,203 @@
   </table>
 </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <script>
-    var wall_types = [1, 6, 2, 5, 26];
-    var u_adobe_wall = { // source: NM Energy Conservation Code Manual
-      // wall type
-      1: {
-        // climatic region => [N,E,S,W]
-        1: [.225, .205, .188, .210],
-        2: [.219, .205, .189, .208],
-        3: [.218, .204, .187, .208],
-        4: [.218, .203, .181, .206],
-        5: [.219, .202, .179, .206],
-        6: [.220, .202, .176, .206],
-        7: [.221, .201, .172, .205],
-        8: [.224, .199, .166, .205],
-        9: [.227, .198, .160, .204],
-        10: [.232, .195, .150, .204],
-        11: [.235, .194, .143, .203]
-      },
-      6: {
-        1: [.067, .062, .058, .064],
-        2: [.062, .058, .054, .059],
-        3: [.061, .057, .053, .058],
-        4: [.060, .056, .051, .058],
-        5: [.060, .056, .051, .058],
-        6: [.061, .056, .050, .058],
-        7: [.061, .056, .050, .058],
-        8: [.063, .057, .049, .059],
-        9: [.064, .057, .049, .060],
-        10: [.067, .058, .048, .061],
-        11: [.069, .059, .048, .062]
-      },
-      2: {
-        1: [.185, .170, .157, .175],
-        2: [.174, .164, .152, .157],
-        3: [.172, .161, .150, .165],
-        4: [.171, .160, .145, .163],
-        5: [.172, .160, .144, .163],
-        6: [.173, .160, .141, .163],
-        7: [.176, .160, .139, .163],
-        8: [.177, .160, .136, .164],
-        9: [.181, .160, .133, .165],
-        10: [.187, .161, .129, .168],
-        11: [.192, .162, .126, .170]
-      },
-      5: {
-        1: [.064, .060, .057, .061],
-        2: [.056, .054, .051, .055],
-        3: [.055, .052, .049, .053],
-        4: [.054, .051, .048, .052],
-        5: [.054, .051, .047, .052],
-        6: [.055, .051, .047, .053],
-        7: [.055, .052, .047, .053],
-        8: [.057, .053, .047, .054],
-        9: [.059, .054, .047, .055],
-        10: [.062, .056, .048, .058],
-        11: [.065, .057, .049, .060]
-      },
-      26: {
-        1: [.071, .066, .059, .067],
-        2: [.074, .063, .047, .065],
-        3: [.075, .062, .042, .064],
-        4: [.078, .060, .034, .063],
-        5: [.078, .059, .031, .062],
-        6: [.078, .057, .026, .061],
-        7: [.077, .053, .018, .058],
-        8: [.076, .047, .006, .052],
-        9: [.073, .038, -.009, .045],
-        10: [.066, .023, -.035, .031],
-        11: [.062, .013, -.053, .022]
-      }
+<div>
+  <h2>Data Sources</h2>
+  <ul>
+    <li>U-values for adobe walls: <a href="https://theearthbuildersguild.com/wp-content/uploads/2017/09/1993-NM-ECC-Residential-Applications-Manual-5.23.17-1.pdf">1993 NM Energy Conservation Code Applications Manual</a></li>
+    <li>U-value for windows (.33): reciprocal of R-3</li>
+    <li>U-value for roof (.024): reciprocal of R-42</li>
+    <li>U-value for foundation perimeter (.17): Edward Mazria, <em>The Passive Solar Energy Book, Professional Edition</em> (ISBN 0878572384), p. 278 [<a href="https://www.alibris.com/search/books/isbn/0878572384">buy at Alibris</a>]</li>
+    <li>U-value for infiltration (.018): Mazria</li>
+    <li>typical air changes per hour: David Wright, <em>The Passive Solar Primer</em> [<a href="https://www.google.com/books/edition/The_Passive_Solar_Primer/6aU2AQAAIAAJ?hl=en">search on Google Books</a>] [<a href="https://www.alibris.com/The-Passive-Solar-Primer-Sustainable-Architecture-David-Wright/book/10977295">buy at Alibris</a>]</li>
+  </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+  var wall_types = [1, 6, 2, 5, 26];
+  var u_adobe_wall = {
+    // wall type
+    1: {
+      // climatic region => [N,E,S,W]
+      1: [.225, .205, .188, .210],
+      2: [.219, .205, .189, .208],
+      3: [.218, .204, .187, .208],
+      4: [.218, .203, .181, .206],
+      5: [.219, .202, .179, .206],
+      6: [.220, .202, .176, .206],
+      7: [.221, .201, .172, .205],
+      8: [.224, .199, .166, .205],
+      9: [.227, .198, .160, .204],
+      10: [.232, .195, .150, .204],
+      11: [.235, .194, .143, .203]
+    },
+    6: {
+      1: [.067, .062, .058, .064],
+      2: [.062, .058, .054, .059],
+      3: [.061, .057, .053, .058],
+      4: [.060, .056, .051, .058],
+      5: [.060, .056, .051, .058],
+      6: [.061, .056, .050, .058],
+      7: [.061, .056, .050, .058],
+      8: [.063, .057, .049, .059],
+      9: [.064, .057, .049, .060],
+      10: [.067, .058, .048, .061],
+      11: [.069, .059, .048, .062]
+    },
+    2: {
+      1: [.185, .170, .157, .175],
+      2: [.174, .164, .152, .157],
+      3: [.172, .161, .150, .165],
+      4: [.171, .160, .145, .163],
+      5: [.172, .160, .144, .163],
+      6: [.173, .160, .141, .163],
+      7: [.176, .160, .139, .163],
+      8: [.177, .160, .136, .164],
+      9: [.181, .160, .133, .165],
+      10: [.187, .161, .129, .168],
+      11: [.192, .162, .126, .170]
+    },
+    5: {
+      1: [.064, .060, .057, .061],
+      2: [.056, .054, .051, .055],
+      3: [.055, .052, .049, .053],
+      4: [.054, .051, .048, .052],
+      5: [.054, .051, .047, .052],
+      6: [.055, .051, .047, .053],
+      7: [.055, .052, .047, .053],
+      8: [.057, .053, .047, .054],
+      9: [.059, .054, .047, .055],
+      10: [.062, .056, .048, .058],
+      11: [.065, .057, .049, .060]
+    },
+    26: {
+      1: [.071, .066, .059, .067],
+      2: [.074, .063, .047, .065],
+      3: [.075, .062, .042, .064],
+      4: [.078, .060, .034, .063],
+      5: [.078, .059, .031, .062],
+      6: [.078, .057, .026, .061],
+      7: [.077, .053, .018, .058],
+      8: [.076, .047, .006, .052],
+      9: [.073, .038, -.009, .045],
+      10: [.066, .023, -.035, .031],
+      11: [.062, .013, -.053, .022]
     }
-    var u_window = .33; // reciprocal of R-3
-    var u_roof = .024; // reciprocal of R-42
-    var u_foundation_perimeter = .17; // Mazria p. 278
-    var u_infiltration_volume = .018; // Mazria
-    var app = new Vue({
-      el: '#adobeCalculator',
-      data: {
-        nm_climatic_zone: 4,
-        wall_area_n: 494,
-        wall_area_e: 234,
-        wall_area_s: 250,
-        wall_area_w: 234,
-        window_area_n: 6,
-        window_area_e: 16,
-        window_area_s: 250,
-        window_area_w: 16,
-        roof_area: 1250,
-        foundation_perimeter: 150,
-        infiltration_volume: 12500,
-        airchanges_per_hour: 1,
-        design_day_avg_temp: 35,
-        desired_indoor_temp: 65
+  }
+  var u_window = .33; // reciprocal of R-3
+  var u_roof = .024; // reciprocal of R-42
+  var u_foundation_perimeter = .17;
+  var u_infiltration_volume = .018;
+  var app = new Vue({
+    el: '#adobeCalculator',
+    data: {
+      nm_climatic_zone: 4,
+      wall_area_n: 494,
+      wall_area_e: 234,
+      wall_area_s: 250,
+      wall_area_w: 234,
+      window_area_n: 6,
+      window_area_e: 16,
+      window_area_s: 250,
+      window_area_w: 16,
+      roof_area: 1250,
+      foundation_perimeter: 150,
+      infiltration_volume: 12500,
+      airchanges_per_hour: 1,
+      design_day_avg_temp: 35,
+      desired_indoor_temp: 65
+    },
+    computed: {
+      heatgain: function () {
+        return this.window_area_s * 1550;
       },
-      computed: {
-        heatgain: function () {
-          return this.window_area_s * 1550;
-        },
-        n_wall_loss: function () {
-          var results = [];
-          for (var i = 0; i < wall_types.length; i++) {
-            var t = wall_types[i];
-            results.push(this.wall_area_n * u_adobe_wall[t][this.nm_climatic_zone][0]);
-          }
-          return results;
-        },
-        e_wall_loss: function () {
-          var results = [];
-          for (var i = 0; i < wall_types.length; i++) {
-            var t = wall_types[i];
-            results.push(this.wall_area_e * u_adobe_wall[t][this.nm_climatic_zone][1]);
-          }
-          return results;
-        },
-        s_wall_loss: function () {
-          var results = [];
-          for (var i = 0; i < wall_types.length; i++) {
-            var t = wall_types[i];
-            results.push(this.wall_area_s * u_adobe_wall[t][this.nm_climatic_zone][2]);
-          }
-          return results;
-        },
-        w_wall_loss: function () {
-          var results = [];
-          for (var i = 0; i < wall_types.length; i++) {
-            var t = wall_types[i];
-            results.push(this.wall_area_w * u_adobe_wall[t][this.nm_climatic_zone][3]);
-          }
-          return results;
-        },
-
-        n_window_loss: function () {
-          return this.window_area_n * u_window;
-        },
-        e_window_loss: function () {
-          return this.window_area_e * u_window;
-        },
-        s_window_loss: function () {
-          return this.window_area_s * u_window;
-        },
-        w_window_loss: function () {
-          return this.window_area_w * u_window;
-        },
-
-        roof_loss: function() {
-          return this.roof_area * u_roof;
-        },
-        foundation_loss: function() {
-          return this.foundation_perimeter * u_foundation_perimeter;
-        },
-        infiltration_loss: function() {
-          return this.infiltration_volume * this.airchanges_per_hour * u_infiltration_volume;
-        },
-
-        total_losses: function () {
-          var results = [];
-          for (var i = 0; i < wall_types.length; i++) {
-            var t = wall_types[i];
-            results.push(
-              (
-                this.n_wall_loss[i] +
-                this.e_wall_loss[i] +
-                this.s_wall_loss[i] +
-                this.w_wall_loss[i] +
-                this.n_window_loss +
-                this.e_window_loss +
-                this.s_window_loss +
-                this.w_window_loss +
-                this.roof_loss +
-                this.foundation_loss +
-                this.infiltration_loss
-              ) * this.delta_t * 24
-            );
-          }
-          return results;
-        },
-        delta_t: function() {
-          return [this.desired_indoor_temp - this.design_day_avg_temp];
-        },
+      n_wall_loss: function () {
+        var results = [];
+        for (var i = 0; i < wall_types.length; i++) {
+          var t = wall_types[i];
+          results.push(this.wall_area_n * u_adobe_wall[t][this.nm_climatic_zone][0]);
+        }
+        return results;
       },
-      methods: {
-      }
-    });
-  </script>
+      e_wall_loss: function () {
+        var results = [];
+        for (var i = 0; i < wall_types.length; i++) {
+          var t = wall_types[i];
+          results.push(this.wall_area_e * u_adobe_wall[t][this.nm_climatic_zone][1]);
+        }
+        return results;
+      },
+      s_wall_loss: function () {
+        var results = [];
+        for (var i = 0; i < wall_types.length; i++) {
+          var t = wall_types[i];
+          results.push(this.wall_area_s * u_adobe_wall[t][this.nm_climatic_zone][2]);
+        }
+        return results;
+      },
+      w_wall_loss: function () {
+        var results = [];
+        for (var i = 0; i < wall_types.length; i++) {
+          var t = wall_types[i];
+          results.push(this.wall_area_w * u_adobe_wall[t][this.nm_climatic_zone][3]);
+        }
+        return results;
+      },
+
+      n_window_loss: function () {
+        return this.window_area_n * u_window;
+      },
+      e_window_loss: function () {
+        return this.window_area_e * u_window;
+      },
+      s_window_loss: function () {
+        return this.window_area_s * u_window;
+      },
+      w_window_loss: function () {
+        return this.window_area_w * u_window;
+      },
+
+      roof_loss: function() {
+        return this.roof_area * u_roof;
+      },
+      foundation_loss: function() {
+        return this.foundation_perimeter * u_foundation_perimeter;
+      },
+      infiltration_loss: function() {
+        return this.infiltration_volume * this.airchanges_per_hour * u_infiltration_volume;
+      },
+
+      total_losses: function () {
+        var results = [];
+        for (var i = 0; i < wall_types.length; i++) {
+          var t = wall_types[i];
+          results.push(
+            (
+              this.n_wall_loss[i] +
+              this.e_wall_loss[i] +
+              this.s_wall_loss[i] +
+              this.w_wall_loss[i] +
+              this.n_window_loss +
+              this.e_window_loss +
+              this.s_window_loss +
+              this.w_window_loss +
+              this.roof_loss +
+              this.foundation_loss +
+              this.infiltration_loss
+            ) * this.delta_t * 24
+          );
+        }
+        return results;
+      },
+      delta_t: function() {
+        return [this.desired_indoor_temp - this.design_day_avg_temp];
+      },
+    },
+    methods: {
+    }
+  });
+</script>
+
 </body>
 </html>
