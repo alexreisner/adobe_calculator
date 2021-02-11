@@ -262,7 +262,7 @@
 <div>
   <h2>Data Sources</h2>
   <ul>
-    <li>U-values for adobe walls: <a href="https://theearthbuildersguild.com/wp-content/uploads/2017/09/1993-NM-ECC-Residential-Applications-Manual-5.23.17-1.pdf">1993 NM Energy Conservation Code Applications Manual</a></li>
+    <li>U-values for walls: <a href="https://theearthbuildersguild.com/wp-content/uploads/2017/09/1993-NM-ECC-Residential-Applications-Manual-5.23.17-1.pdf">1993 NM Energy Conservation Code Applications Manual</a></li>
     <li>U-value for windows (.33): reciprocal of R-3</li>
     <li>U-value for roof (.024): reciprocal of R-42</li>
     <li>U-value for foundation perimeter (.17): Edward Mazria, <em>The Passive Solar Energy Book, Professional Edition</em> (ISBN 0878572384), p. 278 [<a href="https://www.alibris.com/search/books/isbn/0878572384">buy at Alibris</a>]</li>
@@ -274,7 +274,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
   var wall_types = [1, 6, 2, 5, 26];
-  var u_adobe_wall = {
+  var u_walls = {
     // wall type
     1: {
       // climatic region => [N,E,S,W]
@@ -374,7 +374,7 @@
         var results = [];
         for (var i = 0; i < wall_types.length; i++) {
           var t = wall_types[i];
-          results.push(this.wall_area_n * u_adobe_wall[t][this.nm_climatic_zone][0]);
+          results.push(this.wall_area_n * u_walls[t][this.nm_climatic_zone][0]);
         }
         return results;
       },
@@ -382,7 +382,7 @@
         var results = [];
         for (var i = 0; i < wall_types.length; i++) {
           var t = wall_types[i];
-          results.push(this.wall_area_e * u_adobe_wall[t][this.nm_climatic_zone][1]);
+          results.push(this.wall_area_e * u_walls[t][this.nm_climatic_zone][1]);
         }
         return results;
       },
@@ -390,7 +390,7 @@
         var results = [];
         for (var i = 0; i < wall_types.length; i++) {
           var t = wall_types[i];
-          results.push(this.wall_area_s * u_adobe_wall[t][this.nm_climatic_zone][2]);
+          results.push(this.wall_area_s * u_walls[t][this.nm_climatic_zone][2]);
         }
         return results;
       },
@@ -398,7 +398,7 @@
         var results = [];
         for (var i = 0; i < wall_types.length; i++) {
           var t = wall_types[i];
-          results.push(this.wall_area_w * u_adobe_wall[t][this.nm_climatic_zone][3]);
+          results.push(this.wall_area_w * u_walls[t][this.nm_climatic_zone][3]);
         }
         return results;
       },
