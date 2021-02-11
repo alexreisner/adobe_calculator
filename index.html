@@ -114,9 +114,10 @@ input { width: 75px; }
       <td>Air changes per hour</td>
       <td>
         <select v-model.number="airchanges_per_hour">
-          <option value="0.33">0.33</option>
-          <option value="0.5">0.5</option>
-          <option value="1">1</option>
+          <option value="0.33">0.33 (for very tight construction or surfaces with 0 (zero) window or door openings)</option>
+          <option value="0.66">0.66 (for tight construction or surfaces with 1 window or door opening)</option>
+          <option value="1">1.0 (for leaky construction or surfaces with 2 window or door openings)</option>
+          <option value="1.33">1.33 (for very leaky construction or surfaces with 3 window or door openings)</option>
         </select>
       </td>
     </tr>
