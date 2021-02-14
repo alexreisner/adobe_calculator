@@ -268,6 +268,7 @@
     <li>U-value for foundation perimeter (.17): Edward Mazria, <em>The Passive Solar Energy Book, Professional Edition</em> (ISBN 0878572384), p. 278 [<a href="https://www.alibris.com/search/books/isbn/0878572384">buy at Alibris</a>]</li>
     <li>U-value for infiltration (.018): Mazria</li>
     <li>typical air changes per hour: David Wright, <em>The Passive Solar Primer</em> [<a href="https://www.google.com/books/edition/The_Passive_Solar_Primer/6aU2AQAAIAAJ?hl=en">search at Google Books</a>] [<a href="https://www.alibris.com/The-Passive-Solar-Primer-Sustainable-Architecture-David-Wright/book/10977295">buy at Alibris</a>]</li>
+    <li>heat gain through vertical double glazing at 36° N latitude: Mazria, Appendix 6 (p. 403 in non-professional edition)</li>
   </ul>
 </div>
 
@@ -347,6 +348,9 @@
   var u_roof = .024; // reciprocal of R-42
   var u_foundation_perimeter = .17;
   var u_infiltration_volume = .018;
+  var gain_per_day_window_s = 1550
+  var gain_per_day_window_e = 528
+  var gain_per_day_window_w = 528
   var app = new Vue({
     el: '#adobeCalculator',
     data: {
@@ -368,7 +372,9 @@
     },
     computed: {
       heatgain: function () {
-        return this.window_area_s * 1550;
+        return this.window_area_s * gain_per_day_window_s +
+          this.window_area_e * gain_per_day_window_e +
+          this.window_area_w * gain_per_day_window_w;
       },
       n_wall_loss: function () {
         var results = [];
