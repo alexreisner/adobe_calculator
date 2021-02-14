@@ -5,6 +5,7 @@
   <title>Adobe Home Heat Gain & Loss Calculations</title>
   <style>
     input { width: 75px; }
+    input.r-value { width: 58px; }
     #results td { text-align: right; }
   </style>
 </head>
@@ -128,6 +129,14 @@
     <tr>
       <td>Desired indoor temp</td>
       <td><input type="number" v-model.number="desired_indoor_temp" /> °F</td>
+    </tr>
+    <tr>
+      <td>Window R-value</td>
+      <td>R-<input type="number" v-model.number="r_window" class="r-value" /></td>
+    </tr>
+    <tr>
+      <td>Roof insulation R-value</td>
+      <td>R-<input type="number" v-model.number="r_roof" class="r-value" /></td>
     </tr>
   </table>
 
@@ -344,8 +353,6 @@
       11: [.062, .013, -.053, .022]
     }
   }
-  var u_window = .33; // reciprocal of R-3
-  var u_roof = .024; // reciprocal of R-42
   var u_foundation_perimeter = .17;
   var u_infiltration_volume = .018;
   var gain_per_day_window_s = 1550
@@ -368,7 +375,9 @@
       infiltration_volume: 12500,
       airchanges_per_hour: 1,
       design_day_avg_temp: 35,
-      desired_indoor_temp: 65
+      desired_indoor_temp: 65,
+      r_window: 3,
+      r_roof: 42
     },
     computed: {
       heatgain: function () {
@@ -409,21 +418,27 @@
         return results;
       },
 
+      u_window: function() {
+        return 1 / this.r_window;
+      },
+      u_roof: function() {
+        return 1 / this.r_roof;
+      },
       n_window_loss: function () {
-        return this.window_area_n * u_window;
+        return this.window_area_n * this.u_window;
       },
       e_window_loss: function () {
-        return this.window_area_e * u_window;
+        return this.window_area_e * this.u_window;
       },
       s_window_loss: function () {
-        return this.window_area_s * u_window;
+        return this.window_area_s * this.u_window;
       },
       w_window_loss: function () {
-        return this.window_area_w * u_window;
+        return this.window_area_w * this.u_window;
       },
 
       roof_loss: function() {
-        return this.roof_area * u_roof;
+        return this.roof_area * this.u_roof;
       },
       foundation_loss: function() {
         return this.foundation_perimeter * u_foundation_perimeter;
