@@ -157,11 +157,9 @@
       <th>Wall Type 6<br/>10" adobe<br/>+ R10 insulation</th>
       <th>Wall Type 2<br/>14" adobe<br/>&nbsp;</th>
       <th>Wall Type 5<br/>14" adobe<br/>+ R10 insulation</th>
-      <th>Wall Type 26<br/>pine log<br/>&nbsp;</th>
     </tr>
     <tr>
       <td>Heat gain (BTU/day)</td>
-      <td v-highlight="heatgain">{{heatgain}}</td>
       <td v-highlight="heatgain">{{heatgain}}</td>
       <td v-highlight="heatgain">{{heatgain}}</td>
       <td v-highlight="heatgain">{{heatgain}}</td>
@@ -173,7 +171,6 @@
       <td v-highlight="total_losses">{{Math.round(total_losses[1])}}</td>
       <td v-highlight="total_losses">{{Math.round(total_losses[2])}}</td>
       <td v-highlight="total_losses">{{Math.round(total_losses[3])}}</td>
-      <td v-highlight="total_losses">{{Math.round(total_losses[4])}}</td>
     </tr>
     <tr>
       <td>Gain as % of loss</td>
@@ -181,7 +178,6 @@
       <td v-highlight="heatgain + total_losses">{{Math.round(heatgain / total_losses[1] * 100)}}%</td>
       <td v-highlight="heatgain + total_losses">{{Math.round(heatgain / total_losses[2] * 100)}}%</td>
       <td v-highlight="heatgain + total_losses">{{Math.round(heatgain / total_losses[3] * 100)}}%</td>
-      <td v-highlight="heatgain + total_losses">{{Math.round(heatgain / total_losses[4] * 100)}}%</td>
     </tr>
     <tr><td><br /></td></tr>
     <tr>
@@ -193,7 +189,6 @@
       <td v-highlight="n_wall_loss">{{Math.round(n_wall_loss[1])}}</td>
       <td v-highlight="n_wall_loss">{{Math.round(n_wall_loss[2])}}</td>
       <td v-highlight="n_wall_loss">{{Math.round(n_wall_loss[3])}}</td>
-      <td v-highlight="n_wall_loss">{{Math.round(n_wall_loss[4])}}</td>
     </tr>
     <tr>
       <td>E wall</td>
@@ -201,7 +196,6 @@
       <td v-highlight="e_wall_loss">{{Math.round(e_wall_loss[1])}}</td>
       <td v-highlight="e_wall_loss">{{Math.round(e_wall_loss[2])}}</td>
       <td v-highlight="e_wall_loss">{{Math.round(e_wall_loss[3])}}</td>
-      <td v-highlight="e_wall_loss">{{Math.round(e_wall_loss[4])}}</td>
     </tr>
     <tr>
       <td>S wall</td>
@@ -209,7 +203,6 @@
       <td v-highlight="s_wall_loss">{{Math.round(s_wall_loss[1])}}</td>
       <td v-highlight="s_wall_loss">{{Math.round(s_wall_loss[2])}}</td>
       <td v-highlight="s_wall_loss">{{Math.round(s_wall_loss[3])}}</td>
-      <td v-highlight="s_wall_loss">{{Math.round(s_wall_loss[4])}}</td>
     </tr>
     <tr>
       <td>W wall</td>
@@ -217,11 +210,9 @@
       <td v-highlight="w_wall_loss">{{Math.round(w_wall_loss[1])}}</td>
       <td v-highlight="w_wall_loss">{{Math.round(w_wall_loss[2])}}</td>
       <td v-highlight="w_wall_loss">{{Math.round(w_wall_loss[3])}}</td>
-      <td v-highlight="w_wall_loss">{{Math.round(w_wall_loss[4])}}</td>
     </tr>
     <tr>
       <td>N window</td>
-      <td v-highlight="n_window_loss">{{Math.round(n_window_loss)}}</td>
       <td v-highlight="n_window_loss">{{Math.round(n_window_loss)}}</td>
       <td v-highlight="n_window_loss">{{Math.round(n_window_loss)}}</td>
       <td v-highlight="n_window_loss">{{Math.round(n_window_loss)}}</td>
@@ -233,11 +224,9 @@
       <td v-highlight="e_window_loss">{{Math.round(e_window_loss)}}</td>
       <td v-highlight="e_window_loss">{{Math.round(e_window_loss)}}</td>
       <td v-highlight="e_window_loss">{{Math.round(e_window_loss)}}</td>
-      <td v-highlight="e_window_loss">{{Math.round(e_window_loss)}}</td>
     </tr>
     <tr>
       <td>S window</td>
-      <td v-highlight="s_window_loss">{{Math.round(s_window_loss)}}</td>
       <td v-highlight="s_window_loss">{{Math.round(s_window_loss)}}</td>
       <td v-highlight="s_window_loss">{{Math.round(s_window_loss)}}</td>
       <td v-highlight="s_window_loss">{{Math.round(s_window_loss)}}</td>
@@ -249,11 +238,9 @@
       <td v-highlight="w_window_loss">{{Math.round(w_window_loss)}}</td>
       <td v-highlight="w_window_loss">{{Math.round(w_window_loss)}}</td>
       <td v-highlight="w_window_loss">{{Math.round(w_window_loss)}}</td>
-      <td v-highlight="w_window_loss">{{Math.round(w_window_loss)}}</td>
     </tr>
     <tr>
       <td>Roof</td>
-      <td v-highlight="roof_loss">{{Math.round(roof_loss)}}</td>
       <td v-highlight="roof_loss">{{Math.round(roof_loss)}}</td>
       <td v-highlight="roof_loss">{{Math.round(roof_loss)}}</td>
       <td v-highlight="roof_loss">{{Math.round(roof_loss)}}</td>
@@ -265,11 +252,9 @@
       <td v-highlight="foundation_loss">{{Math.round(foundation_loss)}}</td>
       <td v-highlight="foundation_loss">{{Math.round(foundation_loss)}}</td>
       <td v-highlight="foundation_loss">{{Math.round(foundation_loss)}}</td>
-      <td v-highlight="foundation_loss">{{Math.round(foundation_loss)}}</td>
     </tr>
     <tr>
       <td>Infiltration</td>
-      <td v-highlight="infiltration_loss">{{Math.round(infiltration_loss)}}</td>
       <td v-highlight="infiltration_loss">{{Math.round(infiltration_loss)}}</td>
       <td v-highlight="infiltration_loss">{{Math.round(infiltration_loss)}}</td>
       <td v-highlight="infiltration_loss">{{Math.round(infiltration_loss)}}</td>
@@ -310,7 +295,7 @@
       hlCache.remove(el)
     }
   })
-  var wall_types = [1, 6, 2, 5, 26];
+  var wall_types = [1, 6, 2, 5];
   var u_walls = {
     // wall type
     1: {
